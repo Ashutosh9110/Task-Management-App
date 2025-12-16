@@ -13,20 +13,18 @@ const cookieOptions = {
 }
 
 export class AuthController {
+
   async register(req: Request, res: Response): Promise<void> {
     const data = registerSchema.parse(req.body)
-
     const { user, token } = await service.register(data)
-
     res.cookie(COOKIE_NAME, token, cookieOptions)
     res.status(201).json({ user })
   }
 
+
   async login(req: Request, res: Response): Promise<void> {
     const data = loginSchema.parse(req.body)
-
     const { user, token } = await service.login(data.email, data.password)
-
     res.cookie(COOKIE_NAME, token, cookieOptions)
     res.status(200).json({ user })
   }
@@ -39,4 +37,5 @@ export class AuthController {
   me(req: Request, res: Response): void {
     res.status(200).json({ user: req.user })
   }
+  
 }
