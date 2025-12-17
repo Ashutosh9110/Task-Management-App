@@ -1,5 +1,10 @@
 import { TaskRepository } from "./task.repository.js"
 import type { Task } from "../../generated/prisma/index.js"
+import { emitTaskUpdated } from "./task.events.js"
+import { NotificationService } from "../notification/notification.service.js"
+import { emitNotification } from "../notification/notification.events.js"
+
+const notificationService = new NotificationService()
 
 const repo = new TaskRepository()
 
@@ -34,22 +39,27 @@ export class TaskService {
     return task
   }
 
-  async updateTask(
-    taskId: string,
-    userId: string,
-    data: Partial<Task>
-  ): Promise<Task> {
+  async updateTask(taskId: string, userId: string, data: any) {
     const task = await this.getTaskById(taskId)
-
     if (task.creatorId !== userId) {
-      throw new Error("Not authorized to update this task")
+      throw new Error("Not authorized")
     }
-
-    return repo.update(taskId, {
-      ...data,
-      dueDate: data.dueDate ? new Date(data.dueDate) : undefined
-    })
+    const updatedTask = await repo.update(taskId, data)
+    emitTaskUpdated(updatedTask)
+    if (
+      data.assignedToId &&
+      data.assignedToId !== task.assignedToId
+    ) {
+      const notification =
+        await notificationService.createAssignmentNotification(
+          data.assignedToId,
+          taskId
+        )
+      emitNotification(data.assignedToId, notification)
+    }
+    return updatedTask
   }
+  
 
   async deleteTask(taskId: string, userId: string): Promise<void> {
     const task = await this.getTaskById(taskId)
