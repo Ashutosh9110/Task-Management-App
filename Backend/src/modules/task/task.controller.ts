@@ -10,11 +10,11 @@ export class TaskController {
 
     const task = await service.createTask({
       title: data.title,
+      description: data.description ?? "",
       dueDate: data.dueDate,
       priority: data.priority,
       assignedToId: data.assignedToId,
       status: data.status,
-      ...(data.description && { description: data.description }),
       creatorId: req.user!.id
     })
 

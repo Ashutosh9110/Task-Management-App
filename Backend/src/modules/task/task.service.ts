@@ -11,7 +11,7 @@ const repo = new TaskRepository()
 export class TaskService {
   async createTask(input: {
     title: string
-    description?: string
+    description: string
     dueDate: string
     priority: any
     status?: any
@@ -20,7 +20,7 @@ export class TaskService {
   }): Promise<Task> {
     return repo.create({
       title: input.title,
-      description: input.description,
+      description: input.description ?? "",
       dueDate: new Date(input.dueDate),
       priority: input.priority,
       status: input.status,
