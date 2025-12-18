@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useSocket } from "../../../hooks/useSocket.js"
-import { Task } from "../task.types"
+import type { Task } from "../task.types"
 
 export function useTaskSocket() {
   const socket = useSocket()

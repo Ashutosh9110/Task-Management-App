@@ -5,7 +5,7 @@ const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true
 })
 
-const SocketContext = createContext<Socket>(socket)
+export const SocketContext = createContext<Socket>(socket)
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => (
   <SocketContext.Provider value={socket}>
@@ -13,4 +13,4 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => (
   </SocketContext.Provider>
 )
 
-export const useSocket = () => useContext(SocketContext)
+ const useSocket = () => useContext(SocketContext)

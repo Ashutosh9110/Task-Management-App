@@ -1,4 +1,4 @@
-import { Task } from "../task.types"
+import type { Task } from "../task.types"
 import clsx from "clsx"
 
 const priorityColor: Record<string, string> = {
