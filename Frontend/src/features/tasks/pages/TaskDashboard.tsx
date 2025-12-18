@@ -1,14 +1,17 @@
 import { useMemo, useState } from "react"
 import { useTasks } from "../hooks/useTasks"
 import { useAuth } from "../../../hooks/useAuth"
-import { TaskCard } from "../components/TaskCard"
 import { TaskFilters } from "../components/TaskFilters"
 import { useTaskSocket } from "../hooks/useTaskSocket"
+import { TaskSection } from "../components/TaskSection"
 
 export default function TaskDashboard() {
+  // socket listener (side-effect only)
   useTaskSocket()
 
-  const { data: tasks = [] } = useTasks()
+  const { data } = useTasks()
+  const safeTasks = Array.isArray(data) ? data : []
+
   const { user } = useAuth()
 
   const [status, setStatus] = useState("All")
@@ -18,19 +21,15 @@ export default function TaskDashboard() {
   const now = new Date()
 
   const filteredTasks = useMemo(() => {
-    return tasks
-      .filter(t =>
-        status === "All" ? true : t.status === status
-      )
-      .filter(t =>
-        priority === "All" ? true : t.priority === priority
-      )
+    return safeTasks
+      .filter(t => status === "All" || t.status === status)
+      .filter(t => priority === "All" || t.priority === priority)
       .sort((a, b) =>
         sort === "asc"
           ? +new Date(a.dueDate) - +new Date(b.dueDate)
           : +new Date(b.dueDate) - +new Date(a.dueDate)
       )
-  }, [tasks, status, priority, sort])
+  }, [safeTasks, status, priority, sort])
 
   const assignedToMe = filteredTasks.filter(
     t => t.assignedToId === user?.id
@@ -43,28 +42,7 @@ export default function TaskDashboard() {
   const overdue = filteredTasks.filter(
     t =>
       new Date(t.dueDate) < now &&
-      t.status !== "Completed"
-  )
-
-  const Section = ({
-    title,
-    tasks
-  }: {
-    title: string
-    tasks: typeof filteredTasks
-  }) => (
-    <section className="mb-10">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      {tasks.length === 0 ? (
-        <p className="text-gray-500">No tasks</p>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tasks.map(task => (
-            <TaskCard key={task.id} task={task} />
-          ))}
-        </div>
-      )}
-    </section>
+      t.status !== "COMPLETED"
   )
 
   return (
@@ -82,9 +60,9 @@ export default function TaskDashboard() {
         setSort={setSort}
       />
 
-      <Section title="Assigned to Me" tasks={assignedToMe} />
-      <Section title="Created by Me" tasks={createdByMe} />
-      <Section title="Overdue Tasks" tasks={overdue} />
+      <TaskSection title="Assigned to Me" tasks={assignedToMe} />
+      <TaskSection title="Created by Me" tasks={createdByMe} />
+      <TaskSection title="Overdue Tasks" tasks={overdue} />
     </div>
   )
 }

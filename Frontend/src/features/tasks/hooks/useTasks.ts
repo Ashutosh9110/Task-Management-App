@@ -6,6 +6,7 @@ export function useTasks() {
   return useQuery<Task[]>({
     queryKey: ["tasks"],
     queryFn: getTasks,
-    staleTime: 1000 * 60 // 1 minute
+    staleTime: 1000 * 60,
+    initialData: [],
   })
 }

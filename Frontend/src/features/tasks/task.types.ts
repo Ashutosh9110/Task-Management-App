@@ -10,7 +10,7 @@ export interface Task {
   id: string
   title: string
   description: string
-  dueDate: string // ISO date string
+  dueDate: string
   priority: TaskPriority
   status: TaskStatus
 
