@@ -1,13 +1,13 @@
+import { BrowserRouter } from "react-router-dom"
+import { AppRoutes } from "./routes"
+import { AppProviders } from "./providers"
 
-import './App.css'
-
-function App() {
-
+export default function App() {
   return (
-    <>
-
-    </>
+    <AppProviders>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AppProviders>
   )
 }
-
-export default App
