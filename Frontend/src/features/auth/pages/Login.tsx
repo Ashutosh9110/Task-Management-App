@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../../hooks/useAuth"
-import AuthLayout from "../../../components/layout/AuthLayout"
 
 const schema = z.object({
   email: z.string().email(),
@@ -12,8 +11,12 @@ const schema = z.object({
 
 type LoginForm = z.infer<typeof schema>
 
+const VIDEO_URL =
+  "https://res.cloudinary.com/YOUR_CLOUD/video/upload/YOUR_VIDEO.mp4"
+
 export default function Login() {
   const { login } = useAuth()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -25,64 +28,79 @@ export default function Login() {
 
   const onSubmit = async (data: LoginForm) => {
     await login(data.email, data.password)
+    navigate("/app")
   }
 
   return (
-    <AuthLayout
-      title="Welcome back"
-      subtitle="Sign in to manage your tasks"
-    >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            {...register("email")}
-            type="email"
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500 mt-1">
-              {errors.email.message}
-            </p>
-          )}
-        </div>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src={VIDEO_URL} type="video/mp4" />
+      </video>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <input
-            {...register("password")}
-            type="password"
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500 mt-1">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60" />
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded-lg bg-indigo-600 text-white py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60"
-        >
-          {isSubmitting ? "Signing in..." : "Sign In"}
-        </button>
+      {/* Card */}
+      <div className="relative z-10 w-[90%] max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 sm:p-8 text-white">
+        <h2 className="text-3xl font-bold text-center mb-2">
+          Welcome Back
+        </h2>
+        <p className="text-center text-gray-300 mb-6">
+          Login to continue
+        </p>
 
-        <p className="text-sm text-center text-gray-600">
-          Don’t have an account?{" "}
-          <Link
-            to="/register"
-            className="text-indigo-600 hover:underline font-medium"
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <input
+              {...register("email")}
+              type="email"
+              placeholder="Email address"
+              className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-white"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-400 mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              {...register("password")}
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-white"
+            />
+            {errors.password && (
+              <p className="text-sm text-red-400 mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60"
           >
+            {isSubmitting ? "Signing in..." : "Login"}
+          </button>
+        </form>
+
+        <div className="mt-6 text-center text-sm text-gray-300">
+          Don’t have an account?{" "}
+          <Link to="/register" className="text-white underline">
             Register
           </Link>
-        </p>
-      </form>
-    </AuthLayout>
+        </div>
+      </div>
+    </div>
   )
 }
