@@ -1,109 +1,82 @@
-import { useState } from "react"
-import { createTask } from "../../../api/task.api"
-import { useAuth } from "../../../hooks/useAuth"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { taskSchema } from "../task.schema"
+import type { TaskFormValues } from "../task.schema"
 import { useUsers } from "../../users/hooks/useUsers"
+import { useAuth } from "../../../hooks/useAuth"
+import { createTask } from "../../../api/task.api"
 import type { TaskPriority, TaskStatus } from "../task.types"
 
 type Props = {
   onSuccess?: () => void
 }
 
-type TaskFormState = {
-  title: string
-  description: string
-  dueDate: string
-  priority: TaskPriority
-  status: TaskStatus
-  assignedToId: string
-}
-
-const PRIORITIES = [
+const PRIORITIES: { label: string; value: TaskPriority }[] = [
   { label: "Low", value: "LOW" },
   { label: "Medium", value: "MEDIUM" },
   { label: "High", value: "HIGH" }
 ]
 
-const STATUSES = [
+const STATUSES: { label: string; value: TaskStatus }[] = [
   { label: "To Do", value: "TODO" },
   { label: "In Progress", value: "IN_PROGRESS" },
   { label: "Completed", value: "COMPLETED" }
 ]
 
 export function TaskForm({ onSuccess }: Props) {
-  const [loading, setLoading] = useState(false)
   const { user } = useAuth()
   const { data: users = [] } = useUsers()
 
-  const [form, setForm] = useState<TaskFormState>({
-    title: "",
-    description: "",
-    dueDate: "",
-    priority: "MEDIUM",
-    status: "TODO",
-    assignedToId: ""
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<TaskFormValues>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      priority: "MEDIUM",
+      status: "TODO"
+    }
   })
 
-  const onChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setForm(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      await createTask({
-        ...form,
-        dueDate: new Date(form.dueDate).toISOString()
-      })
-
-      onSuccess?.()
-    } catch (err) {
-      console.error("Failed to create task", err)
-    } finally {
-      setLoading(false)
-    }
+  const submit = async (data: TaskFormValues) => {
+    await createTask({
+      ...data,
+      dueDate: new Date(data.dueDate).toISOString()
+    })
+    onSuccess?.()
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4">
+    <form onSubmit={handleSubmit(submit)} className="space-y-4">
       <h2 className="text-xl font-semibold">Create Task</h2>
 
       <input
-        name="title"
-        required
-        value={form.title}
-        onChange={onChange}
-        className="w-full border rounded px-3 py-2"
+        {...register("title")}
         placeholder="Task title"
+        className="w-full border rounded px-3 py-2"
       />
+      {errors.title && (
+        <p className="text-red-400 text-sm">{errors.title.message}</p>
+      )}
 
       <textarea
-        name="description"
+        {...register("description")}
         rows={3}
-        value={form.description}
-        onChange={onChange}
-        className="w-full border rounded px-3 py-2"
         placeholder="Optional details"
+        className="w-full border rounded px-3 py-2"
       />
 
       <input
         type="datetime-local"
-        name="dueDate"
-        required
-        value={form.dueDate}
-        onChange={onChange}
+        {...register("dueDate")}
         className="w-full border rounded px-3 py-2"
       />
+      {errors.dueDate && (
+        <p className="text-red-400 text-sm">{errors.dueDate.message}</p>
+      )}
 
-      <select name="priority" value={form.priority} onChange={onChange}>
+      <select {...register("priority")} className="w-full border rounded px-3 py-2">
         {PRIORITIES.map(p => (
           <option key={p.value} value={p.value}>
             {p.label}
@@ -111,7 +84,7 @@ export function TaskForm({ onSuccess }: Props) {
         ))}
       </select>
 
-      <select name="status" value={form.status} onChange={onChange}>
+      <select {...register("status")} className="w-full border rounded px-3 py-2">
         {STATUSES.map(s => (
           <option key={s.value} value={s.value}>
             {s.label}
@@ -120,14 +93,9 @@ export function TaskForm({ onSuccess }: Props) {
       </select>
 
       <div>
-        <label className="block text-sm font-medium mb-1">
-          Assign To
-        </label>
+        <label className="block text-sm font-medium mb-1">Assign To</label>
         <select
-          name="assignedToId"
-          required
-          value={form.assignedToId}
-          onChange={onChange}
+          {...register("assignedToId")}
           className="w-full border rounded px-3 py-2"
         >
           <option value="">Select user</option>
@@ -139,15 +107,20 @@ export function TaskForm({ onSuccess }: Props) {
               </option>
             ))}
         </select>
+        {errors.assignedToId && (
+          <p className="text-red-400 text-sm">
+            {errors.assignedToId.message}
+          </p>
+        )}
       </div>
 
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={loading}
+          disabled={isSubmitting}
           className="px-4 py-2 rounded bg-black text-white"
         >
-          {loading ? "Creating..." : "Create Task"}
+          {isSubmitting ? "Creating..." : "Create Task"}
         </button>
       </div>
     </form>

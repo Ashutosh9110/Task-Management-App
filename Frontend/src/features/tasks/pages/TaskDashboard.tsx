@@ -10,7 +10,7 @@ import { DashboardLayout } from "../../../components/layout/DashboardLayout"
 export default function TaskDashboard() {
   useTaskSocket()
 
-  const { data } = useTasks()
+  const { data, isLoading } = useTasks()
   const safeTasks = Array.isArray(data) ? data : []
 
   const { user } = useAuth()
@@ -70,7 +70,7 @@ export default function TaskDashboard() {
           setSort={setSort}
         />
 
-        <TaskSection title="Assigned to Me" tasks={assignedToMe} />
+        <TaskSection title="Assigned to Me" tasks={assignedToMe} isLoading={isLoading} />
         <TaskSection title="Created by Me" tasks={createdByMe} />
         <TaskSection title="Overdue Tasks" tasks={overdue} />
 
