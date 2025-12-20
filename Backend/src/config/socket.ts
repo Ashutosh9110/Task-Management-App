@@ -1,6 +1,7 @@
 import { Server } from "socket.io"
 import http from "http"
 import { socketAuthMiddleware } from "../middlewares/socketAuth.middleware.js"
+import { Socket } from "socket.io";
 
 export let io: Server
 
@@ -14,7 +15,7 @@ export const initSocket = (server: http.Server) => {
 
   io.use(socketAuthMiddleware)
 
-  io.on("connection", (socket) => {
+  io.on("connection", (socket: Socket) => {
     const userId = socket.data.userId
     socket.join(userId)
 

@@ -1,22 +1,28 @@
-import { Socket } from "socket.io"
-import { verifyToken } from "../utils/jwt.js"
+import { Socket } from "socket.io";
+import { verifyToken } from "../utils/jwt.js";
 
-export const socketAuthMiddleware = (
-  socket: Socket,
-  next: (err?: Error) => void
-) => {
-  const token = socket.handshake.headers.cookie
-    ?.split("; ")
-    .find(c => c.startsWith(`${process.env.COOKIE_NAME}=`))
-    ?.split("=")[1]
-
-  if (!token) return next(new Error("Unauthorized"))
-
+export const socketAuthMiddleware = (c: Socket, next: (err?: Error) => void) => {
   try {
-    const payload = verifyToken(token)
-    socket.data.userId = payload.userId
-    next()
-  } catch {
-    next(new Error("Unauthorized"))
+    const cookieHeader = c.handshake.headers.cookie;
+
+    const token = cookieHeader
+      ?.split("; ")
+      .find((cookie) =>
+        cookie.startsWith(`${process.env.COOKIE_NAME}=`),
+      )
+      ?.split("=")[1];
+
+    if (!token) {
+      return next(new Error("Unauthorized"));
+    }
+    const payload = verifyToken(token);
+    c.data.userId = payload.userId;
+
+    next();
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    }
+    next(new Error("Unauthorized"));
   }
-}
+};
