@@ -11,10 +11,8 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      if (socket) {
-        socket.disconnect()
-        setSocket(null)
-      }
+      socket?.disconnect()
+      setSocket(null)
       return
     }
 

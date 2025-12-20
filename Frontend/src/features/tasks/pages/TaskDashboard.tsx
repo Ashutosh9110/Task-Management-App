@@ -47,7 +47,6 @@ export default function TaskDashboard() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">My Dashboard</h1>
 
@@ -72,7 +71,6 @@ export default function TaskDashboard() {
       <TaskSection title="Created by Me" tasks={createdByMe} />
       <TaskSection title="Overdue Tasks" tasks={overdue} />
 
-      {/* Create Task Modal */}
       {showCreate && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg">

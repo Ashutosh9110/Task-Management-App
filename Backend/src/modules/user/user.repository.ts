@@ -7,4 +7,14 @@ export class UserRepository {
       data: { name }
     })
   }
+
+  findAllPublic() {
+    return prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true
+      }
+    })
+  }
 }
