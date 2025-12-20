@@ -1,5 +1,5 @@
 import { prisma } from "../../config/prisma.js"
-import type { User } from "@prisma/client"
+import type { User } from "../../generated/prisma/index.js"
 
 
 export class AuthRepository {
