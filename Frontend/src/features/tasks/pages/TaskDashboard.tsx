@@ -5,6 +5,7 @@ import { TaskFilters } from "../components/TaskFilters"
 import { useTaskSocket } from "../hooks/useTaskSocket"
 import { TaskSection } from "../components/TaskSection"
 import { TaskForm } from "../components/TaskForm"
+import { DashboardLayout } from "../../../components/layout/DashboardLayout"
 
 export default function TaskDashboard() {
   useTaskSocket()
@@ -46,44 +47,47 @@ export default function TaskDashboard() {
   )
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">My Dashboard</h1>
+    <DashboardLayout title="My Dashboard">
 
-        <button
-          onClick={() => setShowCreate(true)}
-          className="px-4 py-2 rounded bg-black text-white hover:bg-gray-800"
-        >
-          + Create Task
-        </button>
-      </div>
+      <div className="p-6 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold">My Dashboard</h1>
 
-      <TaskFilters
-        status={status}
-        priority={priority}
-        sort={sort}
-        setStatus={setStatus}
-        setPriority={setPriority}
-        setSort={setSort}
-      />
-
-      <TaskSection title="Assigned to Me" tasks={assignedToMe} />
-      <TaskSection title="Created by Me" tasks={createdByMe} />
-      <TaskSection title="Overdue Tasks" tasks={overdue} />
-
-      {showCreate && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg">
-            <TaskForm onSuccess={() => setShowCreate(false)} />
-            <button
-              onClick={() => setShowCreate(false)}
-              className="mt-4 text-sm text-gray-500"
-            >
-              Cancel
-            </button>
-          </div>
+          <button
+            onClick={() => setShowCreate(true)}
+            className="px-4 py-2 rounded bg-black text-white hover:bg-gray-800"
+          >
+            + Create Task
+          </button>
         </div>
-      )}
-    </div>
+
+        <TaskFilters
+          status={status}
+          priority={priority}
+          sort={sort}
+          setStatus={setStatus}
+          setPriority={setPriority}
+          setSort={setSort}
+        />
+
+        <TaskSection title="Assigned to Me" tasks={assignedToMe} />
+        <TaskSection title="Created by Me" tasks={createdByMe} />
+        <TaskSection title="Overdue Tasks" tasks={overdue} />
+
+        {showCreate && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg w-full max-w-lg">
+              <TaskForm onSuccess={() => setShowCreate(false)} />
+              <button
+                onClick={() => setShowCreate(false)}
+                className="mt-4 text-sm text-gray-500"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </DashboardLayout>
   )
 }
