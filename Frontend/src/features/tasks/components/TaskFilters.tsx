@@ -1,6 +1,3 @@
-import { Listbox } from "@headlessui/react"
-import clsx from "clsx"
-
 const statuses = ["All", "To Do", "In Progress", "Review", "Completed"]
 const priorities = ["All", "Low", "Medium", "High", "Urgent"]
 

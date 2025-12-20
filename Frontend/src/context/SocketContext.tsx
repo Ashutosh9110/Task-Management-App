@@ -1,9 +1,17 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState, useContext } from "react"
 import { io, Socket } from "socket.io-client"
 import { useAuth } from "../hooks/useAuth"
 
 
 export const SocketContext = createContext<Socket | null>(null)
+
+export function useSocket() {
+  const socket = useContext(SocketContext)
+  if (!socket) {
+    throw new Error("useSocket must be used within SocketProvider")
+  }
+  return socket
+}
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth()

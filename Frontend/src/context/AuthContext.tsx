@@ -5,7 +5,6 @@ import { getMe, login as loginApi, register as registerApi, logout as logoutApi 
 export type AuthUser = {
   id: string
   name: string
-  name: string
   email: string
 }
 

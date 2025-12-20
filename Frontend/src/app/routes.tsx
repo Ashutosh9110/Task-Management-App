@@ -1,3 +1,4 @@
+import React from "react" 
 import { Routes, Route, Navigate } from "react-router-dom"
 import Login from "../features/auth/pages/Login"
 import Register from "../features/auth/pages/Register"
@@ -6,7 +7,7 @@ import TaskDetails from "../features/tasks/pages/TaskDetails"
 import Welcome from "../features/auth/pages/Welcome"
 import { useAuth } from "../hooks/useAuth"
 
-function ProtectedRoute({ children }: { children: JSX.Element }) {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth()
 
   if (loading) {

@@ -11,6 +11,13 @@ type Props = {
   onSuccess?: () => void
 }
 
+type User = {
+  id: string
+  name?: string
+  email: string
+}
+
+
 const PRIORITIES: { label: string; value: TaskPriority }[] = [
   { label: "Low", value: "LOW" },
   { label: "Medium", value: "MEDIUM" },
@@ -25,7 +32,7 @@ const STATUSES: { label: string; value: TaskStatus }[] = [
 
 export function TaskForm({ onSuccess }: Props) {
   const { user } = useAuth()
-  const { data: users = [] } = useUsers()
+  const { data: users = [] } = useUsers() as { data: User[] }
 
   const {
     register,

@@ -11,7 +11,7 @@ const priorityColor: Record<string, string> = {
 export function TaskCard({ task }: { task: Task }) {
   const isOverdue =
     new Date(task.dueDate) < new Date() &&
-    task.status !== "Completed"
+    task.status !== "COMPLETED"
 
   return (
     <div className="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition">
