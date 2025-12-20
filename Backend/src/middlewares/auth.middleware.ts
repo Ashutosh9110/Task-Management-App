@@ -7,6 +7,9 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
+  // console.log("Cookies:", req.cookies)
+  // console.log("Token:", req.cookies?.[process.env.COOKIE_NAME!])
+
   const token = req.cookies?.[process.env.COOKIE_NAME!]
 
   if (!token) {

@@ -1,22 +1,35 @@
 import { useState } from "react"
 import { createTask } from "../../../api/task.api"
+import { useAuth } from "../../../hooks/useAuth"
 
 type Props = {
   onSuccess?: () => void
 }
 
-const PRIORITIES = ["Low", "Medium", "High", "Urgent"]
-const STATUSES = ["To Do", "In Progress", "Review", "Completed"]
+
+
+const PRIORITIES = [
+  { label: "Low", value: "LOW" },
+  { label: "Medium", value: "MEDIUM" },
+  { label: "High", value: "HIGH" }
+]
+
+const STATUSES = [
+  { label: "To Do", value: "TODO" },
+  { label: "In Progress", value: "IN_PROGRESS" },
+  { label: "Completed", value: "COMPLETED" }
+]
+
 
 export function TaskForm({ onSuccess }: Props) {
   const [loading, setLoading] = useState(false)
-
+  const { user } = useAuth()
   const [form, setForm] = useState({
     title: "",
     description: "",
     dueDate: "",
-    priority: "Medium",
-    status: "To Do",
+    priority: "MEDIUM",
+    status: "TODO",
     assignedToId: ""
   })
 
@@ -40,7 +53,7 @@ export function TaskForm({ onSuccess }: Props) {
         dueDate: new Date(form.dueDate).toISOString(),
         priority: form.priority,
         status: form.status,
-        assignedToId: form.assignedToId
+        assignedToId: user!.id
       })
 
       onSuccess?.()
@@ -106,14 +119,14 @@ export function TaskForm({ onSuccess }: Props) {
           name="priority"
           value={form.priority}
           onChange={onChange}
-          className="w-full border rounded px-3 py-2"
         >
           {PRIORITIES.map(p => (
-            <option key={p} value={p}>
-              {p}
+            <option key={p.value} value={p.value}>
+              {p.label}
             </option>
           ))}
         </select>
+
       </div>
 
       <div>
@@ -124,17 +137,16 @@ export function TaskForm({ onSuccess }: Props) {
           name="status"
           value={form.status}
           onChange={onChange}
-          className="w-full border rounded px-3 py-2"
         >
           {STATUSES.map(s => (
-            <option key={s} value={s}>
-              {s}
+            <option key={s.value} value={s.value}>
+              {s.label}
             </option>
           ))}
         </select>
       </div>
 
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium mb-1">
           Assign To (User ID)
         </label>
@@ -146,7 +158,7 @@ export function TaskForm({ onSuccess }: Props) {
           className="w-full border rounded px-3 py-2"
           placeholder="User ID"
         />
-      </div>
+      </div> */}
 
       <div className="flex justify-end gap-3 pt-2">
         <button

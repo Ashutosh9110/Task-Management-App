@@ -1,7 +1,7 @@
 import { AuthRepository } from "./auth.repository.js"
 import { hashPassword, comparePassword } from "../../utils/password.js"
 import { signToken } from "../../utils/jwt.js"
-import type { User } from "../../generated/prisma/index.js";
+import type { User } from "../../generated/prisma/index.js"
 
 const repo = new AuthRepository()
 

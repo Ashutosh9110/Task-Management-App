@@ -27,13 +27,16 @@ export default function Login() {
   })
 
   const onSubmit = async (data: LoginForm) => {
-    await login(data.email, data.password)
-    navigate("/app")
+    try {
+      await login(data.email, data.password)
+      navigate("/app")
+    } catch (err: any) {
+      alert(err.message)
+    }    
   }
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video */}
       <video
         autoPlay
         loop
@@ -88,7 +91,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60"
+            className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60 cursor-pointer"
           >
             {isSubmitting ? "Signing in..." : "Login"}
           </button>
@@ -96,7 +99,7 @@ export default function Login() {
 
         <div className="mt-6 text-center text-sm text-gray-300">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-white underline">
+          <Link to="/register" className="text-white underline cursor-pointer">
             Register
           </Link>
         </div>

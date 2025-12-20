@@ -13,8 +13,8 @@
         description: data.description ?? "",
         dueDate: data.dueDate,
         priority: data.priority,
+        status: data.status ?? "TODO",
         assignedToId: data.assignedToId,
-        status: data.status,
         creatorId: req.user!.id
       })
 
@@ -29,7 +29,7 @@
     async getById(req: Request, res: Response) {
       const { id } = req.params
       if (!id) {
-        res.status(400).json({ message: "Task ID is required" })
+        res.status(400).json({ message: "Task ID is required" }) 
         return
       }
       const task = await service.getTaskById(id)

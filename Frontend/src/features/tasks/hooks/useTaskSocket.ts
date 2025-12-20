@@ -10,7 +10,6 @@ export function useTaskSocket() {
   useEffect(() => {
     if (!socket) return
 
-    // When any task is updated
     socket.on("task:updated", (updatedTask: Task) => {
       queryClient.setQueryData<Task[]>(["tasks"], (old) => {
         if (!old) return []
@@ -20,14 +19,12 @@ export function useTaskSocket() {
       })
     })
 
-    // When a new task is created
     socket.on("task:created", (task: Task) => {
       queryClient.setQueryData<Task[]>(["tasks"], (old) =>
         old ? [task, ...old] : [task]
       )
     })
 
-    // When a task is deleted
     socket.on("task:deleted", (taskId: string) => {
       queryClient.setQueryData<Task[]>(["tasks"], (old) =>
         old ? old.filter(t => t.id !== taskId) : []

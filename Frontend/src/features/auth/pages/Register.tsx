@@ -29,12 +29,11 @@ export default function Register() {
 
   const onSubmit = async (data: RegisterForm) => {
     await registerUser(data.name, data.email, data.password)
-    navigate("/app")
+    navigate("/login")
   }
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video */}
       <video
         autoPlay
         loop
@@ -45,10 +44,7 @@ export default function Register() {
         <source src={VIDEO_URL} type="video/mp4" />
       </video>
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/60" />
-
-      {/* Card */}
       <div className="relative z-10 w-[90%] max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 sm:p-8 text-white">
         <h2 className="text-3xl font-bold text-center mb-2">
           Create Account
@@ -102,7 +98,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60"
+            className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60 cursor-pointer"
           >
             {isSubmitting ? "Creating account..." : "Register"}
           </button>
@@ -110,7 +106,7 @@ export default function Register() {
 
         <div className="mt-6 text-center text-sm text-gray-300">
           Already have an account?{" "}
-          <Link to="/login" className="text-white underline">
+          <Link to="/login" className="text-white underline cursor-pointer">
             Sign in
           </Link>
         </div>

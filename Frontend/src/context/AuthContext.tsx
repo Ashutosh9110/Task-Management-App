@@ -1,13 +1,10 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-  ReactNode
-} from "react"
+import { createContext, useEffect, useState } from "react"
+import type { ReactNode } from "react"
 import { getMe, login as loginApi, register as registerApi, logout as logoutApi } from "../api/auth.api"
 
 export type AuthUser = {
   id: string
+  name: string
   name: string
   email: string
 }
@@ -29,21 +26,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const isAuthenticated = !!user
 
-  // 🔹 Fetch current user on app load (cookie-based auth)
   useEffect(() => {
     const initAuth = async () => {
       try {
         const me = await getMe()
-        setUser(me)
-      } catch {
-        setUser(null)
+        setUser(me) 
       } finally {
         setLoading(false)
       }
     }
-
     initAuth()
   }, [])
+  
+
 
   const login = async (email: string, password: string) => {
     await loginApi({ email, password })
@@ -53,8 +48,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (name: string, email: string, password: string) => {
     await registerApi({ name, email, password })
-    const me = await getMe()
-    setUser(me)
   }
 
   const logout = async () => {
