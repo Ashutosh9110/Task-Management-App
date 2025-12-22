@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-"scripts": {
-  "build": "prisma generate && tsc -b",
-  "start": "node dist/server.js",
-  "dev": "tsx watch src/server.ts"
-},
+  "scripts": {
+    "build": "prisma generate && tsc -b",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/cookie": "^0.6.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",

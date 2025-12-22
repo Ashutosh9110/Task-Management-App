@@ -18,22 +18,18 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      socket?.disconnect()
-      setSocket(null)
-      return
-    }
+    if (!isAuthenticated) return
 
     const newSocket = io(import.meta.env.VITE_API_URL, {
-      withCredentials: true
+      withCredentials: true,
     })
-
+    // newSocket.connect() 
     setSocket(newSocket)
 
     return () => {
       newSocket.disconnect()
     }
-  }, [isAuthenticated])
+  }, [])
 
   return (
     <SocketContext.Provider value={socket}>
