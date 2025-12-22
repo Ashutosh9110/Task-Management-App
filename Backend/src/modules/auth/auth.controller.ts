@@ -24,10 +24,12 @@ export class AuthController {
 
 
   async login(req: Request, res: Response): Promise<void> {
+    console.time("auth")
     const data = loginSchema.parse(req.body)
     const { user, token } = await service.login(data.email, data.password)
     res.cookie(COOKIE_NAME, token, cookieOptions)
     res.status(200).json({ user })
+    console.timeEnd("auth")
   }
 
   logout(_: Request, res: Response): void {

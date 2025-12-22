@@ -22,7 +22,9 @@
     }
 
     async getAll(req: Request, res: Response) {
+      console.time("db")
       const tasks = await service.getTasksForUser(req.user!.id)
+      console.timeEnd("db")      
       res.status(200).json(tasks)
     }
 

@@ -12,7 +12,7 @@ export default function Welcome() {
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source
-          src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/YOUR_VIDEO.mp4"
+          src="https://res.cloudinary.com/deqp37rqp/video/upload/v1766386989/4_sb8tgv.mp4"
           type="video/mp4"
         />
       </video>

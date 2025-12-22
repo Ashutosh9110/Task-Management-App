@@ -12,7 +12,7 @@ const schema = z.object({
 type LoginForm = z.infer<typeof schema>
 
 const VIDEO_URL =
-  "https://res.cloudinary.com/YOUR_CLOUD/video/upload/YOUR_VIDEO.mp4"
+  "https://res.cloudinary.com/deqp37rqp/video/upload/v1766386742/1_dn9som.mp4"
 
 export default function Login() {
   const { login } = useAuth()
@@ -51,7 +51,7 @@ export default function Login() {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Card */}
-      <div className="relative z-10 w-[90%] max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 sm:p-8 text-white">
+      <div className="relative z-10 w-[90%] max-w-md bg-white/10 backdrop-blur-xs rounded-2xl shadow-2xl p-6 sm:p-8 text-white">
         <h2 className="text-3xl font-bold text-center mb-2">
           Welcome Back
         </h2>
