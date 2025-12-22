@@ -2,7 +2,6 @@
   import { zodResolver } from "@hookform/resolvers/zod"
   import { taskSchema } from "../task.schema"
   import type { TaskFormValues } from "../task.schema"
-  import { useUsers } from "../../users/hooks/useUsers"
   import { useAuth } from "../../../hooks/useAuth"
   import { createTask } from "../../../api/task.api"
   import type { TaskPriority, TaskStatus } from "../task.types"

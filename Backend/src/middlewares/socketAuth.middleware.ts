@@ -1,6 +1,7 @@
 import { Socket } from "socket.io"
 import cookie from "cookie"
 import { verifyToken } from "../utils/jwt.js"
+import { COOKIE_NAME } from "../modules/auth/auth.config.js"
 
 interface JwtPayload { userId: string }
 
@@ -15,7 +16,7 @@ export const socketAuthMiddleware = (
     }
 
     const cookies = cookie.parse(rawCookie)
-    const token = cookies[process.env.COOKIE_NAME as string]
+    const token = cookies[COOKIE_NAME]
 
     if (!token) {
       return next(new Error("Unauthorized"))

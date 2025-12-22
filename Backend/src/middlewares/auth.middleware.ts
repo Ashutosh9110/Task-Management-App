@@ -1,16 +1,17 @@
 import type { Request, Response, NextFunction } from "express"
 import { verifyToken } from "../utils/jwt.js"
 import { prisma } from "../config/prisma.js"
+import { COOKIE_NAME } from "../modules/auth/auth.config.js"
 
 export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // console.log("Cookies:", req.cookies)
-  // console.log("Token:", req.cookies?.[process.env.COOKIE_NAME!])
+  console.log("Cookies:", req.cookies)
+  console.log("Token:", req.cookies?.[process.env.COOKIE_NAME!])
 
-  const token = req.cookies?.[process.env.COOKIE_NAME!]
+  const token = req.cookies?.[COOKIE_NAME]
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" })

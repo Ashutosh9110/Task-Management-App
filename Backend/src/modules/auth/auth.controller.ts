@@ -1,10 +1,10 @@
 import type { Request, Response } from "express"
 import { registerSchema, loginSchema } from "./auth.schema.js"
 import { AuthService } from "./auth.service.js"
+import { COOKIE_NAME } from "./auth.config.js"
 
 const service = new AuthService()
 
-const COOKIE_NAME = process.env.COOKIE_NAME!
 
 const cookieOptions = {
   httpOnly: true,
@@ -24,12 +24,12 @@ export class AuthController {
 
 
   async login(req: Request, res: Response): Promise<void> {
-    console.time("auth")
+    // console.time("auth")
     const data = loginSchema.parse(req.body)
     const { user, token } = await service.login(data.email, data.password)
     res.cookie(COOKIE_NAME, token, cookieOptions)
     res.status(200).json({ user })
-    console.timeEnd("auth")
+    // console.timeEnd("auth")
   }
 
   logout(_: Request, res: Response): void {
@@ -42,8 +42,8 @@ export class AuthController {
   }
 
   me(req: Request, res: Response): void {
+    console.log("Cookies received:", req.cookies)
     res.status(200).json(req.user)
   }
-  
   
 }
