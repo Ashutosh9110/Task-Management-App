@@ -8,8 +8,8 @@ const COOKIE_NAME = process.env.COOKIE_NAME!
 
 const cookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const
+  secure: true,
+  sameSite: "none" as const
 }
 
 export class AuthController {
@@ -33,7 +33,11 @@ export class AuthController {
   }
 
   logout(_: Request, res: Response): void {
-    res.clearCookie(COOKIE_NAME)
+    res.clearCookie(COOKIE_NAME, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none"
+    })
     res.status(200).json({ message: "Logged out successfully" })
   }
 
