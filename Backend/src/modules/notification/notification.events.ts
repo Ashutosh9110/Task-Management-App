@@ -1,5 +1,5 @@
 import { io } from "../../config/socket.js"
-import type { Notification } from "../../generated/prisma/index.js"
+import type { Notification } from "@prisma/client"
 
 export const emitNotification = (
   userId: string,

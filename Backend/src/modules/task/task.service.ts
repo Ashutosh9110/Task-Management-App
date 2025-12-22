@@ -1,5 +1,5 @@
 import { TaskRepository } from "./task.repository.js"
-import type { Task } from "../../generated/prisma/index.js"
+import type { Task } from "@prisma/client"
 import { emitTaskUpdated } from "./task.events.js"
 import { NotificationService } from "../notification/notification.service.js"
 import { emitNotification } from "../notification/notification.events.js"

@@ -1,5 +1,5 @@
 import { io } from "../../config/socket.js"
-import type { Task } from "../../generated/prisma/index.js"
+import type { Task } from "@prisma/client"
 
 export const emitTaskUpdated = (task: Task) => {
   io.to(task.creatorId).emit("task:updated", task)

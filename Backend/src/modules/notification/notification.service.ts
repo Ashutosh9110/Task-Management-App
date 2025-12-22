@@ -1,5 +1,5 @@
 import { prisma } from "../../config/prisma.js"
-import { NotificationType } from "../../generated/prisma/index.js"
+import { NotificationType } from "@prisma/client"
 
 export class NotificationService {
   async createAssignmentNotification(

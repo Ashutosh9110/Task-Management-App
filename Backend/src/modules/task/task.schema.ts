@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { TaskPriority, TaskStatus } from "../../generated/prisma/index.js"
+import { TaskPriority, TaskStatus } from "@prisma/client"
 
 export const createTaskSchema = z.object({
   title: z.string().min(1).max(100),

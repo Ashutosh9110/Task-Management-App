@@ -1,5 +1,5 @@
 import { prisma } from "../../config/prisma.js"
-import type { Prisma, Task } from "../../generated/prisma/index.js"
+import type { Prisma, Task } from "@prisma/client"
 
 export class TaskRepository {
   create(data: Prisma.TaskCreateInput): Promise<Task> {
