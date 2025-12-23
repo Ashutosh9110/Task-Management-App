@@ -43,7 +43,7 @@ export class AuthController {
   }
 
   me(req: Request, res: Response): void {
-    console.log("Cookies received:", req.cookies)
+    // console.log("Cookies received:", req.cookies)
     res.status(200).json(req.user)
   }
   

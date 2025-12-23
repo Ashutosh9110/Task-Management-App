@@ -8,17 +8,7 @@ import { errorMiddleware } from "./middlewares/error.middleware.js"
 const app = express()
 
 app.use(cors({
-  origin: (origin, cb) => {
-    const allowed = [
-      "http://localhost:5173",
-      "https://task-management-app19.netlify.app"
-    ]
-    if (!origin || allowed.includes(origin)) {
-      cb(null, true)
-    } else {
-      cb(new Error("Not allowed by CORS"))
-    }
-  },
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }))
 

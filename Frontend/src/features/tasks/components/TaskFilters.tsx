@@ -1,42 +1,42 @@
-const statuses = ["All", "To Do", "In Progress", "Review", "Completed"];
-const priorities = ["All", "Low", "Medium", "High", "Urgent"];
+const statuses = ["All", "To Do", "In Progress", "Review", "Completed"]
+const priorities = ["All", "Low", "Medium", "High", "Urgent"]
 
 type Props = {
-  status: string;
-  priority: string;
-  sort: "asc" | "desc";
-  setStatus: (v: string) => void;
-  setPriority: (v: string) => void;
-  setSort: (v: "asc" | "desc") => void;
-};
+  status: string
+  priority: string
+  sort: "asc" | "desc"
+  setStatus: (v: string) => void
+  setPriority: (v: string) => void
+  setSort: (v: "asc" | "desc") => void
+}
 
 function getStatusOptionClass(status: string) {
   switch (status) {
     case "To Do":
-      return "bg-gray-100 text-gray-800";
+      return "bg-gray-100 text-gray-800"
     case "In Progress":
-      return "bg-blue-100 text-blue-800";
+      return "bg-blue-100 text-blue-800"
     case "Review":
-      return "bg-yellow-100 text-yellow-800";
+      return "bg-yellow-100 text-yellow-800"
     case "Completed":
-      return "bg-green-100 text-green-800";
+      return "bg-green-100 text-green-800"
     default:
-      return "bg-white text-gray-800";
+      return "bg-white text-gray-800"
   }
 }
 
 function getPriorityOptionClass(priority: string) {
   switch (priority) {
     case "Low":
-      return "bg-green-100 text-green-800";
+      return "bg-green-100 text-green-800"
     case "Medium":
-      return "bg-yellow-100 text-yellow-800";
+      return "bg-yellow-100 text-yellow-800"
     case "High":
-      return "bg-orange-100 text-orange-800";
+      return "bg-orange-100 text-orange-800"
     case "Urgent":
-      return "bg-red-100 text-red-800";
+      return "bg-red-100 text-red-800"
     default:
-      return "bg-white text-gray-800";
+      return "bg-white text-gray-800"
   }
 }
 
@@ -90,5 +90,5 @@ export function TaskFilters({
         </button>
       </div>
     </div>
-  );
+  )
 }
