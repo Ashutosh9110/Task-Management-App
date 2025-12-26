@@ -47,14 +47,18 @@ export class TaskService {
     return task
   }
 
+
+
   async getTasksForUser(userId: string): Promise<Task[]> {
     return repo.findAllForUser(userId)
   }
 
+
+
   async updateTask(taskId: string, userId: string, data: any) {
     const task = await this.getTaskById(taskId)
     
-    if (task.creatorId !== userId) {
+    if (task.creatorId !== userId && task.assignedToId !== userId) {
       throw new Error("Not authorized to update this task")
     }
     const updatedTask = await repo.update(taskId, data)
@@ -68,13 +72,13 @@ export class TaskService {
       )
       emitNotification(data.assignedToId, notification)
     }
-    else if (data.assignedToId && task.assignedToId === data.assignedToId) {
+    else if (data.assignedToId && task.assignedToId !== task.assignedToId) {
       const notification = await notificationService.createTaskUpdatedNotification(
-        data.assignedToId,
+        task.assignedToId,
         taskId,
         updatedTask.title
       )
-      emitNotification(data.assignedToId, notification)
+      emitNotification(task.assignedToId, notification)
     }
 
     return updatedTask

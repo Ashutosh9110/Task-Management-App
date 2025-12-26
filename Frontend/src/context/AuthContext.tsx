@@ -4,7 +4,7 @@ import { getMe, login as loginApi, register as registerApi, logout as logoutApi 
 
 export type AuthUser = {
   id: string
-  name: string
+  name: string  
   email: string
 }
 
@@ -29,7 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const initAuth = async () => {
       try {
         const me = await getMe()
-        setUser(me) 
+        if (me) {
+          setUser(me)
+        }
       } finally {
         setLoading(false)
       }
@@ -42,18 +44,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     await loginApi({ email, password })
     const me = await getMe()
-    setUser(me)
+    if (me) {
+      setUser(me)
+    }
   }
+
 
   const register = async (name: string, email: string, password: string) => {
     await registerApi({ name, email, password })
+    const me = await getMe()
+    if (me) {
+      setUser(me)
+    }
   }
+
 
   const logout = async () => {
     await logoutApi()
     setUser(null)
   }
 
+  
   return (
     <AuthContext.Provider
       value={{

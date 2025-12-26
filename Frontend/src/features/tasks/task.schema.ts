@@ -4,8 +4,8 @@ export const taskSchema = z.object({
   title: z.string().min(3),
   description: z.string().optional(),
   dueDate: z.string(),
-  priority: z.enum(["LOW", "MEDIUM", "HIGH"]),
-  status: z.enum(["TODO", "IN_PROGRESS", "COMPLETED"]),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]),
+  status: z.enum(["TODO", "IN_PROGRESS", "REVIEW", "COMPLETED"]),
   assignedToId: z.string().uuid()
 })
 

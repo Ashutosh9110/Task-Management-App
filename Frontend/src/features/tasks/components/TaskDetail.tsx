@@ -142,11 +142,9 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Details */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Description */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Description</h3>
             {isEditing ? (
@@ -166,7 +164,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
             )}
           </div>
 
-          {/* Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Due Date */}
             <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
@@ -188,7 +185,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
               )}
             </div>
 
-            {/* Status */}
             <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <Flag size={18} className="text-gray-400" />
@@ -213,7 +209,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
               )}
             </div>
 
-            {/* Priority */}
             <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <Flag size={18} className="text-gray-400" />
@@ -238,7 +233,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
               )}
             </div>
 
-            {/* Created At */}
             <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <Clock size={18} className="text-gray-400" />
@@ -251,7 +245,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
           </div>
         </div>
 
-        {/* Right Column - People */}
         <div className="space-y-6">
           {/* Creator */}
           <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
@@ -276,7 +269,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
             </div>
           </div>
 
-          {/* Assignee */}
           <div className="bg-gray-900/30 rounded-lg p-4 border border-white/5">
             <div className="flex items-center gap-2 mb-4">
               <User size={18} className="text-gray-400" />
@@ -308,7 +300,6 @@ export function TaskDetail({ task, onClose }: TaskDetailProps) {
         </div>
       </div>
 
-      {/* Footer */}
       <div className="p-6 border-t border-white/10 bg-black/30">
         <div className="flex justify-between items-center">
           <div className="text-sm text-gray-400">

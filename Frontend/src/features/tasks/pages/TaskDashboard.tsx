@@ -26,22 +26,20 @@ export default function TaskDashboard() {
   const now = new Date()
 
   const filteredTasks = useMemo(() => {
-    // Map display status to enum values
     const statusMap: Record<string, string> = {
       "All": "All",
       "To Do": "TODO",
       "In Progress": "IN_PROGRESS",
-      "Review": "REVIEW", // Note: You don't have "REVIEW" in your TaskStatus enum
+      "Review": "REVIEW",
       "Completed": "COMPLETED"
     };
     
-    // Map display priority to enum values
     const priorityMap: Record<string, string> = {
       "All": "All",
       "Low": "LOW",
       "Medium": "MEDIUM",
       "High": "HIGH",
-      "Urgent": "URGENT" // Note: You don't have "URGENT" in your TaskPriority enum
+      "Urgent": "URGENT" 
     };
   
     return safeTasks

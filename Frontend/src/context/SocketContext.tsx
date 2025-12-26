@@ -5,10 +5,12 @@ import { useAuth } from "../hooks/useAuth"
 const SocketContext = createContext<Socket | null>(null)
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
-  const { token, isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
+    const token = localStorage.getItem("token")
+
     if (!isAuthenticated || !token) {
       if (socket) {
         socket.disconnect()
@@ -40,7 +42,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     return () => {
       newSocket.disconnect()
     }
-  }, [isAuthenticated, token])
+  }, [isAuthenticated, socket])
 
   return (
     <SocketContext.Provider value={socket}>

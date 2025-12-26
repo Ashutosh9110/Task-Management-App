@@ -23,8 +23,8 @@ export async function createTask(payload: {
   title: string
   description?: string
   dueDate: string
-  priority: "LOW" | "MEDIUM" | "HIGH"
-  status: "TODO" | "IN_PROGRESS" | "COMPLETED"
+  priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT"
+  status: "TODO" | "IN_PROGRESS" | "REVIEW" | "COMPLETED"
   assignedToId: string
 }) {
   const res = await axios.post("/tasks", payload)

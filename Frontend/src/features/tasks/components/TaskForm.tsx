@@ -21,12 +21,14 @@
   const PRIORITIES: { label: string; value: TaskPriority }[] = [
     { label: "Low", value: "LOW" },
     { label: "Medium", value: "MEDIUM" },
-    { label: "High", value: "HIGH" }
+    { label: "High", value: "HIGH" },
+    { label: "Urgent", value: "URGENT" }
   ]
 
   const STATUSES: { label: string; value: TaskStatus }[] = [
     { label: "To Do", value: "TODO" },
     { label: "In Progress", value: "IN_PROGRESS" },
+    { label: "Review", value: "REVIEW" },
     { label: "Completed", value: "COMPLETED" }
   ]
 

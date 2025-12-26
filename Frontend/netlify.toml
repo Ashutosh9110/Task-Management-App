@@ -1,0 +1,14 @@
+[build]
+  base = "."
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18" # or your Node version
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[dev]
+  port = 5173 # Vite default port
+  publish = "dist"
