@@ -14,4 +14,16 @@ export interface Task {
 
   createdAt: string
   updatedAt: string
+
+
+creator?: {
+  id: string
+  name: string
+  email: string
+}
+assignedTo?: {
+  id: string
+  name: string
+  email: string
+}
 }

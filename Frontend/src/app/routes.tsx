@@ -28,11 +28,9 @@ export function AppRoutes() {
       <Route path="/" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
       {/* Protected */}
       <Route path="/app" element={ <ProtectedRoute> <TaskDashboard /> </ProtectedRoute> } />
       <Route path="/tasks/:id" element={ <ProtectedRoute> <TaskDetails /> </ProtectedRoute> } />
-
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

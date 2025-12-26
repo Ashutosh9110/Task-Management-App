@@ -7,7 +7,25 @@ export class TaskRepository {
   }
 
   findById(id: string): Promise<Task | null> {
-    return prisma.task.findUnique({ where: { id } })
+    return prisma.task.findUnique({
+      where: { id },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        }
+      }
+    })
   }
 
   findAllForUser(userId: string): Promise<Task[]> {
@@ -18,9 +36,26 @@ export class TaskRepository {
           { assignedToId: userId }
         ]
       },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        }
+      },
       orderBy: { dueDate: "asc" }
     })
   }
+
 
   update(id: string, data: Prisma.TaskUpdateInput): Promise<Task> {
     return prisma.task.update({
