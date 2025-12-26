@@ -6,6 +6,8 @@ import { useTaskSocket } from "../hooks/useTaskSocket"
 import { TaskSection } from "../components/TaskSection"
 import { TaskForm } from "../components/TaskForm"
 import { DashboardLayout } from "../../../components/layout/DashboardLayout"
+import NotificationBell from "../../notifications/NotificationBell"
+
 
 export default function TaskDashboard() {
   useTaskSocket()
@@ -82,6 +84,7 @@ export default function TaskDashboard() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">My Dashboard</h1>
           <div className="flex items-center gap-3">
+          <NotificationBell />
           <button
             onClick={() => setShowCreate(true)}
             className="px-4 py-2 rounded bg-black text-white hover:bg-gray-800 cursor-pointer"

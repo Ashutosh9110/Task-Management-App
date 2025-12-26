@@ -85,20 +85,30 @@ model Notification {
   type      NotificationType
   message   String
   isRead    Boolean          @default(false)
-
   createdAt DateTime         @default(now())
 
   // Relations
   userId    String
   taskId    String?
 
-  user      User @relation(fields: [userId], references: [id])
-  task      Task? @relation(fields: [taskId], references: [id])
+  user      User            @relation(fields: [userId], references: [id])
+  task      Task?           @relation(fields: [taskId], references: [id])
 
   @@index([userId, isRead])
+  @@index([createdAt])
   @@map("notifications")
 }
 
 
 
+model SocketSession {
+  id        String   @id @default(uuid())
+  userId    String
+  socketId  String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@index([userId])
+  @@map("socket_sessions")
+}

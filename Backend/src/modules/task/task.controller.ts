@@ -1,6 +1,7 @@
   import type { Request, Response } from "express"
   import { TaskService } from "./task.service.js"
   import { createTaskSchema, updateTaskSchema } from "./task.schema.js"
+  import { emitTaskCreated, emitTaskUpdated, emitTaskDeleted } from "./task.events.js"
 
   const service = new TaskService()
 
@@ -17,14 +18,14 @@
         assignedToId: data.assignedToId,
         creatorId: req.user!.id
       })
-
+      emitTaskCreated(task)
       res.status(201).json(task)
     }
 
     async getAll(req: Request, res: Response) {
-      console.time("db")
+      // console.time("db")
       const tasks = await service.getTasksForUser(req.user!.id)
-      console.timeEnd("db")      
+      // console.timeEnd("db")      
       res.status(200).json(tasks)
     }
 
@@ -51,7 +52,7 @@
         req.user!.id,
         data
       )
-
+      emitTaskUpdated(task)
       res.status(200).json(task)
     }
 
@@ -61,7 +62,9 @@
         res.status(400).json({ message: "Task ID is required" })
         return
       }
+      const task = await service.getTaskById(id)
       await service.deleteTask(id, req.user!.id)
+      emitTaskDeleted(id)
       res.status(204).send()
     }
   }
