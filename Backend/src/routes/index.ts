@@ -7,6 +7,14 @@
 
   const router = Router()
 
+  router.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+      status: 'OK', 
+      timestamp: new Date().toISOString(),
+      service: 'task-management-backend'
+    })
+  })
+
   router.use("/auth", authRoutes)
   router.use("/users", authMiddleware, userRoutes)
   router.use("/tasks", authMiddleware, taskRoutes)
