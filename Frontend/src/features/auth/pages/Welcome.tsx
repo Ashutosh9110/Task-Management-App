@@ -1,10 +1,9 @@
-// Welcome.tsx
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { CheckCircle, Users, Clock, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom"
+import { useState } from "react"
+import { CheckCircle, Users, Clock, TrendingUp } from "lucide-react"
 
 export default function Welcome() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   const features = [
     {
@@ -31,11 +30,10 @@ export default function Welcome() {
       description: "Track progress with detailed analytics",
       color: "from-green-500 to-emerald-500"
     }
-  ];
+  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
-      {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -59,7 +57,6 @@ export default function Welcome() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <main className="container mx-auto px-4 py-12 md:py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -87,7 +84,6 @@ export default function Welcome() {
             </div>
           </div>
 
-          {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
             {features.map((feature, index) => (
               <div
@@ -106,7 +102,6 @@ export default function Welcome() {
             ))}
           </div>
 
-          {/* CTA Section */}
           <div className="text-center">
             <div className="inline-block p-1 rounded-2xl bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 backdrop-blur-sm">
               <div className="px-8 py-6 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80">
@@ -126,7 +121,6 @@ export default function Welcome() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="container mx-auto px-4 py-8 border-t border-white/10">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
@@ -139,5 +133,5 @@ export default function Welcome() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
