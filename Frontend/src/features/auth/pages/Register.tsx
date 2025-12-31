@@ -1,13 +1,21 @@
 import { useForm } from "react-hook-form"
-
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../../hooks/useAuth"
 import { Eye, EyeOff, UserPlus, Check } from "lucide-react"
 import { useState } from "react"
 
+const schema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+    .regex(/[0-9]/, "Must contain at least one number")
+})
 
-
-
+type RegisterForm = z.infer<typeof schema>
 
 export default function Register() {
   const { register: registerUser } = useAuth()
@@ -15,7 +23,14 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<RegisterForm>({
+    resolver: zodResolver(schema)
+  })
 
   const password = watch("password", "")
   const passwordChecks = {
