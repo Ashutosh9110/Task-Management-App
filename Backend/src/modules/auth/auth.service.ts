@@ -28,12 +28,9 @@ export class AuthService {
     return { user, token }
   }
 
-  async login(
-    email: string,
-    password: string
-  ): Promise<{ user: User; token: string }> {
+  async login(email: string, password: string): Promise<{ user: User; token: string }> {
     const user = await repo.findByEmail(email)
-    if (!user) {
+    if (!user || !user.password) {
       throw new Error("Invalid credentials")
     }
 

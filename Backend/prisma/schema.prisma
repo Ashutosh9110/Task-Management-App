@@ -34,24 +34,24 @@ enum NotificationType {
 
 
 
-model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  password    String?
-  name        String
-  githubId    String?  
+  model User {
+    id          String   @id @default(uuid())
+    email       String   @unique
+    password    String?
+    name        String
+    githubId    String?  
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 
-  // Relations
-  createdTasks   Task[] @relation("CreatedTasks")
-  assignedTasks  Task[] @relation("AssignedTasks")
-  notifications  Notification[]
-  socketSessions SocketSession[]
-  
-  @@map("users")
-}
+    // Relations
+    createdTasks   Task[] @relation("CreatedTasks")
+    assignedTasks  Task[] @relation("AssignedTasks")
+    notifications  Notification[]
+    socketSessions SocketSession[]
+    
+    @@map("users")
+  }
 
 
 
