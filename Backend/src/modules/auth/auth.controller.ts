@@ -2,6 +2,9 @@ import type { Request, Response } from "express"
 import { registerSchema, loginSchema } from "./auth.schema.js"
 import { AuthService } from "./auth.service.js"
 import { COOKIE_NAME } from "./auth.config.js"
+import { prisma } from "../../config/prisma.js"
+import { signToken } from "../../utils/jwt.js"
+import axios from 'axios'
 
 const service = new AuthService()
 
@@ -47,6 +50,75 @@ export class AuthController {
   me(req: Request, res: Response): void {
     // console.log("Cookies received:", req.cookies)
     res.status(200).json(req.user)
+  }
+
+
+  async githubRedirect(req: Request, res: Response) {
+    const url =
+      `https://github.com/login/oauth/authorize` +
+      `?client_id=${process.env.GITHUB_CLIENT_ID}` +
+      `&redirect_uri=${process.env.GITHUB_CALLBACK_URL}` +
+      `&scope=user:email`
+
+    res.redirect(url)
+  }
+
+  async githubCallback(req: Request, res: Response) {
+    const { code } = req.query
+
+    const tokenRes = await axios.post(
+      "https://github.com/login/oauth/access_token",
+      {
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code
+      },
+      { headers: { Accept: "application/json" } }
+    )
+
+    const accessToken = tokenRes.data.access_token
+
+    const { data: githubUser } = await axios.get(
+      "https://api.github.com/user",
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    )
+
+    const emailRes = await axios.get(
+      "https://api.github.com/user/emails",
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    )
+
+    type GitHubEmail = {
+      email: string
+      primary: boolean
+      verified: boolean
+      visibility: string | null
+    }
+    
+    const emails: GitHubEmail[] = emailRes.data
+    
+    const primaryEmail = emails.find((e: GitHubEmail) => e.primary)?.email
+    if (!primaryEmail) {
+      return res.status(400).json({ message: "GitHub account has no primary email" })
+    }
+    let user = await prisma.user.findUnique({
+      where: { email: primaryEmail }
+    })
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: primaryEmail,
+          name: githubUser.name || githubUser.login,
+          githubId: githubUser.id.toString()
+        }
+      })
+    }
+
+    const token = signToken({ userId: user.id })
+
+    res
+      .cookie(COOKIE_NAME, token, cookieOptions)
+      .redirect(`${process.env.FRONTEND_URL}/app`)
   }
   
 }

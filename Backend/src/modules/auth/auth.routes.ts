@@ -10,4 +10,8 @@ router.post("/login", controller.login)
 router.post("/logout", controller.logout)
 router.get("/me", authMiddleware, controller.me)
 
+router.get("/github", controller.githubRedirect)
+router.get("/github/callback", controller.githubCallback)
+
+
 export default router
