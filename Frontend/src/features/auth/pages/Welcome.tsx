@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { CheckCircle, Users, Clock, TrendingUp } from "lucide-react"
+import { AnimatedButton } from "../components/AnimatedButton"
 // @ts-ignore
 import TubesCursor from 'threejs-components/build/cursors/tubes1.min.js'
 
@@ -83,19 +84,13 @@ export default function Welcome() {
                 Organize tasks, collaborate with your team, and boost productivity 
                 with our intuitive task management platform.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/register"
-                  className="px-8 py-4 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 cursor-pointer"
-                >
+              <div className="flex flex-col sm:flex-row gap-8 justify-center mt-8">
+                <AnimatedButton to="/register" hueRotate={270}>
                   Start Free Trial
-                </Link>
-                <Link
-                  to="/login"
-                  className="px-8 py-4 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition cursor-pointer"
-                >
+                </AnimatedButton>
+                <AnimatedButton to="/login" hueRotate={110}>
                   Login to Dashboard
-                </Link>
+                </AnimatedButton>
               </div>
             </div>
 
@@ -133,3 +128,14 @@ export default function Welcome() {
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
