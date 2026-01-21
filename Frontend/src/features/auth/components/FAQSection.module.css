@@ -1,0 +1,77 @@
+/* Base styles adapted from user's snippet */
+
+.faqSection {
+    /* max-width: 760px; REMOVED max-width here, will handle container in component */
+    margin: 0 auto;
+    width: 100%;
+    color: #f4f4f6;
+    font-family: 'Lato', sans-serif; /* Fallback if global font differs */
+}
+
+.title {
+    font-size: 52px;
+    color: #f4f4f6;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.faqItem {
+    cursor: pointer;
+    border-bottom: 1px solid #404E5C;
+    margin-bottom: 30px;
+}
+
+.faqItem[open] .summary {
+    margin-bottom: 25px;
+}
+
+.summary {
+    font-size: 20px;
+    color: #f4f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    list-style: none; /* Remove default marker */
+}
+
+.summary::-webkit-details-marker {
+    display: none; /* Hide default marker in Chrome/Safari */
+}
+
+/* Remove default focus outline and add custom one */
+.summary:focus {
+    outline: none;
+}
+
+.summary:focus-visible {
+    outline: 2px solid orange;
+    outline-offset: 8px;
+    border-radius: 4px;
+}
+
+.summary span {
+    margin-top: 4px;
+    color: #f4f4f6;
+}
+
+.answer {
+    max-width: 650px;
+    color: #AEB9C6;
+    font-size: 18px;
+    line-height: 155%;
+    letter-spacing: .1px;
+    margin-bottom: 40px;
+    padding-left: 10px;
+}
+
+/* Icon rotation */
+.icon {
+    transition: transform 0.3s ease;
+}
+
+.faqItem[open] .icon {
+    transform: rotate(45deg); /* For plus icon to become X, or 180 for chevron */
+}

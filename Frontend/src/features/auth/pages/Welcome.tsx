@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
-import { CheckCircle, Users, Clock, TrendingUp } from "lucide-react"
+import { useEffect } from "react"
 import { AnimatedButton } from "../components/AnimatedButton"
+import { FAQSection } from "../components/FAQSection"
 // @ts-ignore
 import TubesCursor from 'threejs-components/build/cursors/tubes1.min.js'
 
 export default function Welcome() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
-
   useEffect(() => {
     const canvas = document.getElementById('canvas')
     if (!canvas) return
@@ -110,6 +108,11 @@ export default function Welcome() {
                 </div>
               </div>
             </div>
+            
+            <div className="mt-24">
+              <FAQSection />
+            </div>
+
           </div>
         </main>
 
