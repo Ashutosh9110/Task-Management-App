@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { AnimatedButton } from "../components/AnimatedButton"
 import { FAQSection } from "../components/FAQSection"
 import { LogoCarousel } from "../../../components/LogoCarousel"
+import { PricingTable } from "../../../components/PricingTable"
 // @ts-ignore
 import TubesCursor from 'threejs-components/build/cursors/tubes1.min.js'
 
@@ -101,6 +102,10 @@ export default function Welcome() {
             
             <div className="mt-24">
               <FAQSection />
+            </div>
+
+            <div className="mt-24">
+              <PricingTable />
             </div>
 
           </div>
