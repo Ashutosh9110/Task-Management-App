@@ -23,6 +23,8 @@
     "react-router-dom": "^7.10.1",
     "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.1.18",
+    "three": "^0.182.0",
+    "threejs-components": "^0.0.30",
     "zod": "^4.2.1"
   },
   "devDependencies": {
