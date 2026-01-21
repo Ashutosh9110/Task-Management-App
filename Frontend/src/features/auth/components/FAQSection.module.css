@@ -67,11 +67,27 @@
     padding-left: 10px;
 }
 
-/* Icon rotation */
+/* Icon styles */
 .icon {
-    transition: transform 0.3s ease;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linecap: square;
+    transition: transform 0.7s ease-out;
+    margin-right: 4px; /* Adjust spacing as needed */
 }
 
+.vertical {
+    transition: opacity 0.7s ease-out;
+}
+
+/* Animation states when detail is open */
 .faqItem[open] .icon {
-    transform: rotate(45deg); /* For plus icon to become X, or 180 for chevron */
+    transform: rotateZ(360deg);
+}
+
+.faqItem[open] .vertical {
+    opacity: 0;
 }

@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-infinite-scroll: infinite-scroll 25s linear infinite;
+
+  @keyframes infinite-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+}
+
 .input {
   @apply w-full rounded-lg border border-white/20 bg-white/10 text-white px-3 py-2;
 }

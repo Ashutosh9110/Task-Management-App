@@ -1,4 +1,3 @@
-import { Plus } from 'lucide-react';
 import styles from './FAQSection.module.css';
 
 interface FAQItem {
@@ -38,7 +37,11 @@ export const FAQSection = () => {
                     <details key={index} className={styles.faqItem}>
                         <summary className={styles.summary}>
                             <span>{faq.question}</span>
-                            <Plus className={styles.icon} />
+                            {/* Custom SVG to match the requested animation structure */}
+                            <svg viewBox="0 0 38 38" className={styles.icon}>
+                                <path className={styles.vertical} d="M19 10.5l0 17" />
+                                <path className={styles.horizontal} d="M10.5 19l17 0" />
+                            </svg>
                         </summary>
                         <p className={styles.answer}>
                             {faq.answer}

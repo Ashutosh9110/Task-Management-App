@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import { AnimatedButton } from "../components/AnimatedButton"
 import { FAQSection } from "../components/FAQSection"
+import { LogoCarousel } from "../../../components/LogoCarousel"
 // @ts-ignore
 import TubesCursor from 'threejs-components/build/cursors/tubes1.min.js'
 
@@ -90,24 +91,13 @@ export default function Welcome() {
                   Login to Dashboard
                 </AnimatedButton>
               </div>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-block p-1 rounded-2xl bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 backdrop-blur-sm">
-                <div className="px-8 py-6 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80">
-                  <h2 className="text-2xl font-bold mb-3">Ready to get started?</h2>
-                  <p className="text-gray-300 mb-6">
-                    Join thousands of teams already using TaskFlow
-                  </p>
-                  <Link
-                    to="/register"
-                    className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition cursor-pointer inline-flex items-center gap-2"
-                  >
-                    Create Free Account
-                  </Link>
-                </div>
+              
+              <div className="mt-16 w-full">
+                <LogoCarousel />
               </div>
             </div>
+
+
             
             <div className="mt-24">
               <FAQSection />
