@@ -7,8 +7,6 @@ export const LogoCarousel = () => {
   useEffect(() => {
     if (logosRef.current) {
       const ul = logosRef.current
-      // Duplicate the list specificially for the seamless infinite scroll effect
-      // Check if we haven't already duplicated it (in case of re-renders)
       if (ul.nextSibling && (ul.nextSibling as HTMLElement).getAttribute('aria-hidden') === 'true') {
         return 
       }
@@ -53,3 +51,32 @@ export const LogoCarousel = () => {
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

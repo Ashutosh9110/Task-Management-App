@@ -84,7 +84,7 @@ export default function Welcome() {
                 Organize tasks, collaborate with your team, and boost productivity 
                 with our intuitive task management platform.
               </p>
-              <div className="flex flex-col sm:flex-row gap-8 justify-center mt-8">
+              <div className="flex flex-col sm:flex-row gap-8 justify-center mt-16">
                 <AnimatedButton to="/register" hueRotate={270}>
                   Start Free Trial
                 </AnimatedButton>
@@ -93,18 +93,18 @@ export default function Welcome() {
                 </AnimatedButton>
               </div>
               
-              <div className="mt-16 w-full">
+              <div className="mt-36 w-full">
                 <LogoCarousel />
               </div>
             </div>
 
 
             
-            <div className="mt-24">
+            <div className="mt-8">
               <FAQSection />
             </div>
 
-            <div className="mt-24">
+            <div className="mt-4">
               <PricingTable />
             </div>
 

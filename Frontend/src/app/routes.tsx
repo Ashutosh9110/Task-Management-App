@@ -1,7 +1,7 @@
 import React from "react" 
 import { Routes, Route, Navigate } from "react-router-dom"
-import Login from "../features/auth/pages/Login"
-import Register from "../features/auth/pages/Register"
+import SlidingAuth from "../features/auth/pages/SlidingAuth"
+// import Register from "../features/auth/pages/Register" // Removed
 import TaskDashboard from "../features/tasks/pages/TaskDashboard"
 import TaskDetails from "../features/tasks/pages/TaskDetails"
 import Welcome from "../features/auth/pages/Welcome"
@@ -24,14 +24,11 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public */}
       <Route path="/" element={<Welcome />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      {/* Protected */}
+      <Route path="/login" element={<SlidingAuth initialMode="signin" />} />
+      <Route path="/register" element={<SlidingAuth initialMode="signup" />} />
       <Route path="/app" element={ <ProtectedRoute> <TaskDashboard /> </ProtectedRoute> } />
       <Route path="/tasks/:id" element={ <ProtectedRoute> <TaskDetails /> </ProtectedRoute> } />
-      {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
