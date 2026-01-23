@@ -7,6 +7,7 @@ import { TaskSection } from "../components/TaskSection"
 import { TaskForm } from "../components/TaskForm"
 import { DashboardLayout } from "../../../components/layout/DashboardLayout"
 import NotificationBell from "../../notifications/NotificationBell"
+import { LogoutButton } from "../../../components/LogoutButton"
 
 
 export default function TaskDashboard() {
@@ -89,11 +90,7 @@ export default function TaskDashboard() {
           >
             + Create Task
           </button>
-          <button
-            onClick={() => logout()}
-            className="px-4 py-2 rounded-md border border-white/20 text-white hover:bg-white/10 transition cursor-pointer">
-            Logout
-          </button>
+          <LogoutButton onLogout={logout} variant="light" />
         </div>
         </div>
 
