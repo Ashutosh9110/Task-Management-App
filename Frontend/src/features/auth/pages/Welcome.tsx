@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { AnimatedButton } from "../components/AnimatedButton"
 import { FAQSection } from "../components/FAQSection"
 import { LogoCarousel } from "../../../components/LogoCarousel"
+import { TeamCarousel } from "../../../components/TeamCarousel"
 import { PricingTable } from "../../../components/PricingTable"
 // @ts-ignore
 import TubesCursor from 'threejs-components/build/cursors/tubes1.min.js'
@@ -56,20 +57,7 @@ export default function Welcome() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500" />
               <span className="text-xl font-bold">TaskFlow</span>
             </div>
-            <div className="flex items-center gap-4">
-              <Link
-                to="/login"
-                className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition cursor-pointer"
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/register"
-                className="px-4 py-2 text-sm font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg border border-white/20 transition cursor-pointer"
-              >
-                Get Started
-              </Link>
-            </div>
+
           </div>
         </header>
 
@@ -98,9 +86,11 @@ export default function Welcome() {
               </div>
             </div>
 
-
+            <div className="mt-16 w-full">
+              <TeamCarousel />
+            </div>
             
-            <div className="mt-8">
+            <div className="mt-2">
               <FAQSection />
             </div>
 
